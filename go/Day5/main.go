@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type valRange struct {
@@ -209,6 +210,7 @@ func main() {
     fmt.Println("Max int32: ", math.MaxInt32)
     fmt.Println("Max int64: ", math.MaxInt64)
     fmt.Println("Calculation lowest for seed ranges...")
+    start := time.Now()
     lowestChan := make(chan int64)
     for _, seed := range al2.seeds {
         fmt.Println("Range :", seed.srcStart, seed.length)
@@ -224,6 +226,8 @@ func main() {
         }
     }
     close(lowestChan)
+    duration := time.Since(start).Milliseconds()
+    fmt.Println("Took: ", duration)
 
     fmt.Println("Lowest location for seed ranges: ", lowest)
 
